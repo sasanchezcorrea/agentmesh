@@ -1,0 +1,2 @@
+description = "Set the agentmesh operating mode (lite/full/ultra/off)"
+prompt = "Set agentmesh to {{args}} mode. Use the mode to keep implementation cost, scope, and complexity proportional to the task. Prefer existing code, standard library, native platform features, and the smallest safe change."
