@@ -195,12 +195,8 @@ until it adds a plugin mechanism.
 
 ## Measured, not promised
 
-The README includes a monochrome cost view to make the value of measurement
-visible without turning an illustration into a fake benchmark:
-
-![Agentmesh live cost view](../assets/agentmesh-cost-view.svg)
-
-The token/credit numbers this repo produces come from
+The README shows the real `/mesh-cost` table shape with placeholder values —
+no illustration, no invented numbers. The token/credit numbers this repo produces come from
 `dashboard/cost-report.js`, run for real, against the real Copilot CLI, from
 inside this session's development. See the script's own header comment for
 the caveats (it measures a warmed-up marginal cost, not a cold-start one; a

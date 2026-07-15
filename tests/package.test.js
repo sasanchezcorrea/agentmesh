@@ -58,7 +58,6 @@ test('versioned stack lock matches the plugin version and ships', () => {
     hosts: ['claude', 'copilot'],
   });
   assert.ok(fs.existsSync(path.join(root, 'tests', 'docker-install.sh')));
-  assert.ok(fs.existsSync(path.join(root, 'assets', 'agentmesh-cost-view.svg')));
 });
 
 test('fast repository checks are configured without Python-only tooling', () => {

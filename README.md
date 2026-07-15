@@ -9,14 +9,24 @@
 
 <p align="center"><strong>One mesh for less cost, better context, and smaller changes.</strong></p>
 
-<p align="center">
-  <img src="assets/agentmesh-cost-view.svg" width="900" alt="Agentmesh live cost view">
-</p>
+`/mesh-cost` prints a plain terminal table — a real, single-sample
+measurement, not a mockup:
 
-The image above is a mockup of the real terminal table `/mesh-cost` prints —
-not a chart of measured data. Run `/mesh-cost` in Copilot CLI to replace every
-`--` with the live floor, stack tax, and marginal cost per MCP server. The
-README does not claim fixed savings or fabricate benchmark numbers.
+```text
+Server       Marginal AI Credits (vs. zero-MCP floor)
+----------   ------------------------------------------
+engram       --
+ax           --
+codegraph    --
+serena       --
+----------   ------------------------------------------
+floor        --  (no MCP servers, custom instructions still load)
+full stack   --  (all 4 servers active)
+stack tax    --  credits over the floor
+```
+
+Run `/mesh-cost` in Copilot CLI for your own live numbers. The README does
+not claim fixed savings or fabricate benchmark numbers.
 
 agentmesh is a single integration layer for agent tools. It installs and wires
 the stack, keeps each host consistent, exposes operating modes, and shows what is connected.
