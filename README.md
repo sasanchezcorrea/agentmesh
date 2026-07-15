@@ -32,6 +32,21 @@ the stack, keeps each host consistent, exposes operating modes, and shows what i
 The manifest is the extension point: add another tool there when it has a
 clear role, install path, and host registration shape.
 
+## Default CodeGraph/Serena routing
+
+Every Agentmesh install receives this preset:
+
+| Need | Use |
+|---|---|
+| Architecture, relevant files/symbols, call paths, callers/callees, or edit impact | **CodeGraph first** |
+| Exact LSP symbol resolution, references/implementations, rename, or symbol-level edit | **Serena second** |
+| CodeGraph has no usable index, is stale, or lacks the detail | **Serena read fallback** |
+
+Do not ask both tools the same discovery question. CodeGraph narrows the
+repository context; Serena performs the precise symbol operation. CodeGraph
+indexing remains opt-in, so Serena is the safe fallback on a newly installed
+machine until an index exists.
+
 ## Install
 
 ```bash
@@ -57,6 +72,7 @@ For VS Code, the installer writes a managed global instruction file at
 `~/.copilot/instructions/agentmesh.instructions.md`, using VS Code's supported
 user-profile instruction tier by default. It applies the Mesh policy across workspaces;
 VS Code still has no native Ponytail commands or hooks.
+Run the same installer after upgrading Agentmesh to refresh that managed file.
 
 Fast repository checks use `prek`:
 

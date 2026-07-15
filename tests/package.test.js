@@ -42,7 +42,11 @@ test('package ships the VS Code instruction source', () => {
 
 test('versioned stack lock matches the plugin version and ships', () => {
   const lock = JSON.parse(fs.readFileSync(path.join(root, 'stack.lock.json'), 'utf8'));
+  const claudePlugin = JSON.parse(fs.readFileSync(path.join(root, '.claude-plugin', 'plugin.json'), 'utf8'));
+  const copilotPlugin = JSON.parse(fs.readFileSync(path.join(root, '.github', 'plugin', 'plugin.json'), 'utf8'));
   assert.equal(lock.agentmesh, pkg.version);
+  assert.equal(claudePlugin.version, pkg.version);
+  assert.equal(copilotPlugin.version, pkg.version);
   assert.deepEqual(
     Object.keys(lock.tools).sort(),
     ['ax', 'codegraph', 'engram', 'ponytail', 'rtk', 'serena'],

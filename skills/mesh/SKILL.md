@@ -32,6 +32,20 @@ Stop at the first rung that holds:
 Read the real flow first. For bug fixes, trace callers and fix the shared
 root cause instead of adding guards at every symptom.
 
+## Default CodeGraph/Serena routing
+
+Use one discovery path per task; do not ask both tools the same discovery
+question.
+
+1. **CodeGraph first** for repository architecture, relevant files and symbols,
+   call paths, callers/callees, and blast-radius analysis before a risky edit.
+2. **Serena second** after CodeGraph narrows the target: use its LSP-aware
+   symbol lookup, references, implementations, and symbol-level edits
+   (`rename`, `replace`, `insert`, or safe delete).
+3. Use Serena for read-only discovery only when CodeGraph has no usable index,
+   is stale, or lacks the required detail. Use raw search only after either
+   tool cannot answer the question.
+
 ## Rules
 
 - No unrequested abstractions or dependencies.

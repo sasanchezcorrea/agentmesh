@@ -6,6 +6,12 @@ const path = require('path');
 const { DEFAULT_MODE, normalizeMode, normalizePersistedMode } = require('./mesh-config');
 
 const SKILL_PATH = path.join(__dirname, '..', 'skills', 'mesh', 'SKILL.md');
+const TOOL_ROUTING =
+  '## Default CodeGraph/Serena routing\n\n' +
+  'Use one discovery path per task; do not ask both tools the same discovery question.\n\n' +
+  '1. **CodeGraph first** for repository architecture, relevant files and symbols, call paths, callers/callees, and blast-radius analysis before a risky edit.\n' +
+  '2. **Serena second** after CodeGraph narrows the target: use its LSP-aware symbol lookup, references, implementations, and symbol-level edits.\n' +
+  '3. Use Serena for read-only discovery only when CodeGraph has no usable index, is stale, or lacks the required detail. Use raw search only after either tool cannot answer the question.\n\n';
 
 function filterSkillBodyForMode(body, mode) {
   const effectiveMode = normalizeMode(mode) || DEFAULT_MODE;
@@ -55,6 +61,7 @@ function getFallbackInstructions(mode) {
     '6. Can this be one line? Make it one line.\n' +
     '7. Only then: write the minimum code that works.\n\n' +
     'Bug fix = root cause, not symptom: grep every caller of the function you touch and fix the shared function once (a smaller diff than one guard per caller); patching only the path the ticket names leaves a sibling caller broken.\n\n' +
+    TOOL_ROUTING +
     '## Rules\n\n' +
     'No abstractions that were not requested. No avoidable dependencies. No boilerplate nobody asked for. ' +
     'Deletion over addition. Boring over clever. Fewest files possible. ' +

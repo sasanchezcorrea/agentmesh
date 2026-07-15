@@ -23,6 +23,20 @@ The ladder runs after you understand the problem, not instead of it: read the ta
 
 Bug fix = root cause, not symptom: a report names a symptom. Grep every caller of the function you touch and fix the shared function once — one guard there is a smaller diff than one per caller, and patching only the path the ticket names leaves a sibling caller still broken.
 
+## Default CodeGraph/Serena routing
+
+Use one discovery path per task; do not ask both tools the same discovery
+question.
+
+1. **CodeGraph first** for repository architecture, relevant files and symbols,
+   call paths, callers/callees, and blast-radius analysis before a risky edit.
+2. **Serena second** after CodeGraph narrows the target: use its LSP-aware
+   symbol lookup, references, implementations, and symbol-level edits
+   (`rename`, `replace`, `insert`, or safe delete).
+3. Use Serena for read-only discovery only when CodeGraph has no usable index,
+   is stale, or lacks the required detail. Use raw search only after either
+   tool cannot answer the question.
+
 Rules:
 
 - No abstractions that weren't explicitly requested.

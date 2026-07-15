@@ -41,6 +41,8 @@ test('installs an idempotent global VS Code instruction file', () => {
     assert.match(content, /applyTo: "\*\*"/);
     assert.match(content, /<!-- Managed by Agentmesh\. -->/);
     assert.match(content, /You are a lazy senior developer/);
+    assert.match(content, /CodeGraph first/);
+    assert.match(content, /Serena second/);
 
     const second = install(home);
     assert.equal(second.status, 0, second.stderr);

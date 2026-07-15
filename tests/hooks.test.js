@@ -30,6 +30,8 @@ let result = run('mesh-activate.js', {
 assert.equal(result.status, 0, result.stderr);
 assert.equal(fs.readFileSync(path.join(home, '.claude', '.agentmesh-mode'), 'utf8'), 'ultra');
 assert.match(result.stdout, /AGENTMESH MODE ACTIVE — level: ultra/);
+assert.match(result.stdout, /CodeGraph first/);
+assert.match(result.stdout, /Serena second/);
 assert.ok(fs.existsSync(path.join(home, '.claude', '.agentmesh-statusline-nudged')));
 
 // Claude Code: switch modes, report the active mode, and deactivate safely.
@@ -95,6 +97,7 @@ result = run('mesh-activate.js', {
 assert.equal(result.status, 0, result.stderr);
 assert.equal(fs.readFileSync(path.join(copilotData, '.agentmesh-mode'), 'utf8'), 'full');
 assert.match(JSON.parse(result.stdout).additionalContext, /AGENTMESH MODE ACTIVE — level: full/);
+assert.match(JSON.parse(result.stdout).additionalContext, /CodeGraph first/);
 
 result = run(
   'mesh-mode-tracker.js',

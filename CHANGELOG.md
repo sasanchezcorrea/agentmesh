@@ -14,6 +14,13 @@ All notable changes to this project are documented here. The format follows
 - VS Code now receives the managed global Agentmesh instruction file through
   its supported `~/.copilot/instructions` user-profile location.
 
+## [0.1.1] - 2026-07-15
+
+### Added
+- A predefined CodeGraph-first/Serena-second routing policy across Claude
+  Code, Copilot CLI, and VS Code. Serena remains the safe read fallback when
+  CodeGraph has no usable index or lacks the necessary detail.
+
 ## [0.1.0] - 2026-07-11
 
 Initial release.
@@ -33,4 +40,5 @@ Initial release.
   drift is detected.
 - Docker smoke test and Renovate/prek quality gates.
 
+[0.1.1]: https://github.com/sasanchezcorrea/agentmesh/tree/v0.1.1
 [0.1.0]: https://github.com/sasanchezcorrea/agentmesh/tree/v0.1.0
