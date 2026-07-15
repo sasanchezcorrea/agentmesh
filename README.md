@@ -1,7 +1,10 @@
 # agentmesh
 
 <p align="center">
-  <img src="assets/agentmesh-logo.svg" width="320" alt="agentmesh logo">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/agentmesh-logo-dark.svg">
+    <img src="assets/agentmesh-logo.svg" width="320" alt="agentmesh logo">
+  </picture>
 </p>
 
 <p align="center"><strong>One mesh for less cost, better context, and smaller changes.</strong></p>
@@ -10,9 +13,10 @@
   <img src="assets/agentmesh-cost-view.svg" width="900" alt="Agentmesh live cost view">
 </p>
 
-The cost view is intentionally live: run `/mesh-cost` in Copilot CLI to
-populate the floor, stack tax, and marginal cost per MCP server. The README
-does not claim fixed savings or fabricate benchmark numbers.
+The image above is a mockup of the real terminal table `/mesh-cost` prints —
+not a chart of measured data. Run `/mesh-cost` in Copilot CLI to replace every
+`--` with the live floor, stack tax, and marginal cost per MCP server. The
+README does not claim fixed savings or fabricate benchmark numbers.
 
 agentmesh is a single integration layer for agent tools. It installs and wires
 the stack, keeps each host consistent, exposes operating modes, and shows what is connected.
@@ -140,12 +144,13 @@ disable Ponytail. Companion sync is best-effort and opt-out with
 
 ## Commands
 
-| Command | Purpose |
+| Command | What it actually does |
 |---|---|
-| `/mesh [mode]` | Set or report the active mode |
-| `/mesh-status` | Show connected tools and active mode |
-| `/mesh-cost` | Measure marginal tool cost |
-| `/mesh-evaluate` | Judge tools and skills by value, cost, and redundancy |
+| `/mesh [lite\|full\|ultra\|off]` | With an argument, sets that stack level for the session (see [Mesh modes](#mesh-modes)) and syncs Ponytail + RTK to match. With no argument, reports the currently active level. Does not persist across sessions. |
+| `/mesh default <level>` | Persists a level as the default for future sessions (not shown above — see `commands/mesh.toml`). |
+| `/mesh-status` | Read-only. Inspects the live tool list for *this exact session* (not the manifest or docs) and prints ✅/❌ per server — CodeGraph, AX, Engram, Serena — plus whether RTK's compression hook is configured and the current mesh mode. Never changes state. |
+| `/mesh-cost` | Runs `node dashboard/cost-report.js`, which drives the Copilot CLI 7 times (toggling `--disable-mcp-server` per tool) to measure real marginal AI-credit cost per server, and prints that output verbatim. If the script errors, it reports the real error — it never fabricates a plausible-looking table. Copilot CLI only; single-sample, expect run-to-run variance. |
+| `/mesh-evaluate` | Evaluates every *connected* server, hook, and mesh skill (not just what's in the manifest): working status, concrete value observed in this task, token/latency cost, overlap with other components, failure risk, and a keep/limit/remove call per mode. Uses `/mesh-cost` data when available; labels anything it can't measure as unknown instead of guessing. |
 
 ## Uninstall
 

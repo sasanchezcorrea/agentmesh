@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc" shape-rendering="crispEdges">
-  <title id="title">Agentmesh pixel cost view</title>
-  <desc id="desc">A monochrome pixel dashboard showing live marginal cost measurements for the Agentmesh MCP stack.</desc>
-  <rect width="1200" height="560" fill="#fff"/>
-  <rect x="28" y="28" width="1144" height="504" fill="#fff" stroke="#111" stroke-width="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc" shape-rendering="crispEdges">
+  <title id="title">Agentmesh cost view</title>
+  <desc id="desc">A mockup of the real `/mesh-cost` terminal table output for the Agentmesh MCP stack. Values are placeholders; run /mesh-cost for live numbers.</desc>
+  <rect width="1200" height="480" fill="#fff"/>
+  <rect x="28" y="28" width="1144" height="424" fill="#fff" stroke="#111" stroke-width="8"/>
 
   <g fill="#111">
     <rect x="64" y="54" width="8" height="8"/>
@@ -17,72 +17,23 @@
     <text x="36" y="27" fill="#fff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">LIVE MEASUREMENT</text>
   </g>
 
-  <g transform="translate(64 116)">
-    <rect width="250" height="112" fill="#111"/>
-    <rect x="16" y="16" width="8" height="8" fill="#aaa"/>
-    <text x="38" y="24" fill="#aaa" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700" letter-spacing="2">MCP FLOOR</text>
-    <text x="20" y="78" fill="#fff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="38" font-weight="700">--</text>
-    <text x="82" y="76" fill="#aaa" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">CREDITS / LIVE</text>
-  </g>
-  <g transform="translate(332 116)">
-    <rect width="250" height="112" fill="#ddd"/>
-    <rect x="16" y="16" width="8" height="8" fill="#555"/>
-    <text x="38" y="24" fill="#555" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700" letter-spacing="2">STACK TAX</text>
-    <text x="20" y="78" fill="#111" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="38" font-weight="700">--</text>
-    <text x="82" y="76" fill="#555" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">VS. FLOOR</text>
-  </g>
-  <g transform="translate(600 116)">
-    <rect width="250" height="112" fill="#aaa"/>
-    <rect x="16" y="16" width="8" height="8" fill="#111"/>
-    <text x="38" y="24" fill="#333" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700" letter-spacing="2">SERVERS</text>
-    <text x="20" y="78" fill="#111" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="38" font-weight="700">04</text>
-    <text x="90" y="76" fill="#333" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">MEASURED</text>
-  </g>
-  <g transform="translate(868 116)">
-    <rect width="248" height="112" fill="#fff" stroke="#111" stroke-width="4"/>
-    <rect x="16" y="16" width="8" height="8" fill="#111"/>
-    <text x="38" y="24" fill="#555" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700" letter-spacing="2">RUN MODE</text>
-    <text x="20" y="78" fill="#111" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="22" font-weight="700">WARMED-UP</text>
+  <text x="64" y="140" fill="#777" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">This is a mockup of the real terminal table `/mesh-cost` prints. Values below are placeholders — run the command for live numbers.</text>
+
+  <g transform="translate(64 170)" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="16" fill="#111">
+    <text x="0" y="0">Server       Marginal AI Credits (vs. zero-MCP floor)</text>
+    <text x="0" y="26">----------   ------------------------------------------</text>
+    <text x="0" y="52">engram       --</text>
+    <text x="0" y="78">ax           --</text>
+    <text x="0" y="104">codegraph    --</text>
+    <text x="0" y="130">serena       --</text>
+    <text x="0" y="156">----------   ------------------------------------------</text>
+    <text x="0" y="182">floor        --  (no MCP servers, custom instructions still load)</text>
+    <text x="0" y="208">full stack   --  (all 4 servers active)</text>
+    <text x="0" y="234">stack tax    --  credits over the floor</text>
   </g>
 
-  <g transform="translate(64 270)">
-    <text x="0" y="0" fill="#111" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="15" font-weight="700" letter-spacing="2">MARGINAL COST / MCP SERVER</text>
-    <text x="0" y="25" fill="#777" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">PIXEL BANDS ARE ILLUSTRATIVE; EXACT VALUES COME FROM /MESH-COST.</text>
-    <g transform="translate(0 48)" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" font-weight="700">
-      <text x="0" y="18" fill="#333">ENGRAM</text>
-      <text x="0" y="58" fill="#333">AX</text>
-      <text x="0" y="98" fill="#333">CODEGRAPH</text>
-      <text x="0" y="138" fill="#333">SERENA</text>
-      <g transform="translate(130 4)">
-        <rect width="16" height="16" fill="#222"/><rect x="20" width="16" height="16" fill="#222"/><rect x="40" width="16" height="16" fill="#222"/><rect x="60" width="16" height="16" fill="#666"/><rect x="80" width="16" height="16" fill="#666"/><rect x="100" width="16" height="16" fill="#aaa"/><rect x="120" width="16" height="16" fill="#aaa"/><rect x="140" width="16" height="16" fill="#ddd"/><rect x="160" width="16" height="16" fill="#ddd"/>
-      </g>
-      <g transform="translate(130 44)">
-        <rect width="16" height="16" fill="#333"/><rect x="20" width="16" height="16" fill="#333"/><rect x="40" width="16" height="16" fill="#777"/><rect x="60" width="16" height="16" fill="#777"/><rect x="80" width="16" height="16" fill="#777"/><rect x="100" width="16" height="16" fill="#aaa"/><rect x="120" width="16" height="16" fill="#aaa"/><rect x="140" width="16" height="16" fill="#ddd"/>
-      </g>
-      <g transform="translate(130 84)">
-        <rect width="16" height="16" fill="#111"/><rect x="20" width="16" height="16" fill="#111"/><rect x="40" width="16" height="16" fill="#111"/><rect x="60" width="16" height="16" fill="#111"/><rect x="80" width="16" height="16" fill="#555"/><rect x="100" width="16" height="16" fill="#555"/><rect x="120" width="16" height="16" fill="#aaa"/><rect x="140" width="16" height="16" fill="#ddd"/><rect x="160" width="16" height="16" fill="#ddd"/>
-      </g>
-      <g transform="translate(130 124)">
-        <rect width="16" height="16" fill="#444"/><rect x="20" width="16" height="16" fill="#444"/><rect x="40" width="16" height="16" fill="#888"/><rect x="60" width="16" height="16" fill="#888"/><rect x="80" width="16" height="16" fill="#888"/><rect x="100" width="16" height="16" fill="#bbb"/><rect x="120" width="16" height="16" fill="#ddd"/>
-      </g>
-    </g>
-  </g>
-
-  <g transform="translate(868 282)">
-    <rect width="248" height="164" fill="#111"/>
-    <g fill="#777">
-      <rect x="20" y="20" width="8" height="8"/><rect x="36" y="20" width="8" height="8"/><rect x="52" y="20" width="8" height="8"/>
-      <rect x="20" y="36" width="8" height="8"/><rect x="52" y="36" width="8" height="8"/>
-      <rect x="20" y="52" width="8" height="8"/><rect x="36" y="52" width="8" height="8"/><rect x="52" y="52" width="8" height="8"/>
-    </g>
-    <text x="82" y="31" fill="#aaa" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700" letter-spacing="2">TRUST RULE</text>
-    <text x="22" y="100" fill="#fff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="17" font-weight="700">MEASURED</text>
-    <text x="22" y="126" fill="#fff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="17" font-weight="700">NOT PROMISED</text>
-    <text x="22" y="149" fill="#aaa" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">BACKEND VARIANCE IS REAL</text>
-  </g>
-
-  <rect x="64" y="486" width="1052" height="34" fill="#ddd"/>
-  <rect x="80" y="498" width="10" height="10" fill="#111"/>
-  <text x="108" y="510" fill="#111" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">/mesh-cost</text>
-  <text x="250" y="510" fill="#555" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">RUN THE LIVE COPILOT CLI MEASUREMENT BEFORE TRUSTING A NUMBER.</text>
+  <rect x="64" y="422" width="1052" height="34" fill="#ddd"/>
+  <rect x="80" y="434" width="10" height="10" fill="#111"/>
+  <text x="108" y="446" fill="#111" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">/mesh-cost</text>
+  <text x="250" y="446" fill="#555" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">RUN THE LIVE COPILOT CLI MEASUREMENT — SINGLE-SAMPLE, EXPECT RUN-TO-RUN VARIANCE.</text>
 </svg>
