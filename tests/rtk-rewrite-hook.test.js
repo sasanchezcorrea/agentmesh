@@ -67,4 +67,41 @@ function run(input, env) {
   assert.equal(stdout, '');
 }
 
+// buildRtkArgs: ultra tightens RTK to Level-2 (--ultra-compact); other levels don't.
+{
+  const { buildRtkArgs } = require(hook);
+  assert.deepEqual(buildRtkArgs('claude', 'ultra'), ['hook', 'claude', '--ultra-compact']);
+  assert.deepEqual(buildRtkArgs('copilot', 'ULTRA'), ['hook', 'copilot', '--ultra-compact']);
+  assert.deepEqual(buildRtkArgs('claude', 'full'), ['hook', 'claude']);
+  assert.deepEqual(buildRtkArgs('claude', 'lite'), ['hook', 'claude']);
+  assert.deepEqual(buildRtkArgs('claude', null), ['hook', 'claude']);
+}
+
+// Integration: at the ultra stack level the wrapper actually passes --ultra-compact.
+{
+  const argEchoDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agentmesh-rtk-arg-'));
+  const argEchoRtk = path.join(argEchoDir, 'rtk');
+  fs.writeFileSync(
+    argEchoRtk,
+    `#!${process.execPath}\nprocess.stdout.write(JSON.stringify({ args: process.argv.slice(2) }));\n`,
+  );
+  fs.chmodSync(argEchoRtk, 0o755);
+
+  const claudeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agentmesh-claude-'));
+  fs.writeFileSync(path.join(claudeDir, '.agentmesh-mode'), 'ultra');
+
+  const { stdout, status } = spawnSync(process.execPath, [hook], {
+    input: JSON.stringify({ tool_name: 'Bash', tool_input: { command: 'git status' } }),
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      PATH: `${argEchoDir}${path.delimiter}${process.env.PATH}`,
+      CLAUDE_CONFIG_DIR: claudeDir,
+      COPILOT_PLUGIN_DATA: '',
+    },
+  });
+  assert.equal(status, 0);
+  assert.deepEqual(JSON.parse(stdout).args, ['hook', 'claude', '--ultra-compact']);
+}
+
 console.log('rtk-rewrite-hook.test.js: all assertions passed');

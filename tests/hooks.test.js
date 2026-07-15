@@ -32,7 +32,11 @@ assert.equal(fs.readFileSync(path.join(home, '.claude', '.agentmesh-mode'), 'utf
 assert.match(result.stdout, /AGENTMESH MODE ACTIVE — level: ultra/);
 assert.match(result.stdout, /CodeGraph first/);
 assert.match(result.stdout, /Serena second/);
+// Conductor: only the active level's stack row is injected — ultra carries RTK ultra-compact.
+assert.match(result.stdout, /ultra-compact/);
 assert.ok(fs.existsSync(path.join(home, '.claude', '.agentmesh-statusline-nudged')));
+// Conductor: activation drives the Ponytail companion to the same level.
+assert.equal(fs.readFileSync(path.join(home, '.claude', '.ponytail-active'), 'utf8'), 'ultra');
 
 // Claude Code: switch modes, report the active mode, and deactivate safely.
 result = run(
@@ -43,6 +47,8 @@ result = run(
 assert.equal(result.status, 0, result.stderr);
 assert.equal(fs.readFileSync(path.join(home, '.claude', '.agentmesh-mode'), 'utf8'), 'lite');
 assert.match(result.stdout, /AGENTMESH MODE CHANGED — level: lite/);
+// Conductor: switching the mesh level re-syncs the Ponytail companion.
+assert.equal(fs.readFileSync(path.join(home, '.claude', '.ponytail-active'), 'utf8'), 'lite');
 
 result = run(
   'mesh-mode-tracker.js',
@@ -98,6 +104,9 @@ assert.equal(result.status, 0, result.stderr);
 assert.equal(fs.readFileSync(path.join(copilotData, '.agentmesh-mode'), 'utf8'), 'full');
 assert.match(JSON.parse(result.stdout).additionalContext, /AGENTMESH MODE ACTIVE — level: full/);
 assert.match(JSON.parse(result.stdout).additionalContext, /CodeGraph first/);
+// Conductor filtering: full injects only the full stack row (balanced), not ultra's.
+assert.match(JSON.parse(result.stdout).additionalContext, /balanced/);
+assert.doesNotMatch(JSON.parse(result.stdout).additionalContext, /ultra-compact/);
 
 result = run(
   'mesh-mode-tracker.js',
@@ -106,6 +115,8 @@ result = run(
 );
 assert.equal(result.status, 0, result.stderr);
 assert.equal(fs.readFileSync(path.join(copilotData, '.agentmesh-mode'), 'utf8'), 'ultra');
+// Conductor: Copilot state dir also receives the synced Ponytail level.
+assert.equal(fs.readFileSync(path.join(copilotData, '.ponytail-active'), 'utf8'), 'ultra');
 assert.deepEqual(JSON.parse(result.stdout), {});
 
 // Claude subagents receive the same ruleset; a matcher can narrow injection.

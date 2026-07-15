@@ -43,7 +43,7 @@
   },
   "builtin": {
     "mesh": {
-      "description": "Cost-aware, minimal implementation modes. Ships directly with the plugin and coordinates the tool stack without another runtime dependency."
+      "description": "Synchronized stack conductor: one `/mesh <level>` drives the required Ponytail companion to the same level and RTK to matching compression (ultra-compact at ultra), and sets CodeGraph/Serena discovery posture and output verbosity. Ships directly with the plugin; coordinates the tool stack without another runtime dependency."
     }
   }
 }

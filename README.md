@@ -27,7 +27,7 @@ the stack, keeps each host consistent, exposes operating modes, and shows what i
 | **Serena** | LSP navigation and symbol editing |
 | **RTK** | Command-output token compression |
 | **Ponytail** | Required minimal-code policy on Claude Code and Copilot CLI |
-| **Mesh mode** | Cost-aware scope, implementation, and response rules |
+| **Mesh mode** | Synchronized stack level — drives Ponytail + RTK + discovery + verbosity at once |
 
 The manifest is the extension point: add another tool there when it has a
 clear role, install path, and host registration shape.
@@ -113,6 +113,11 @@ to keep indexing manual; enable it later with
 
 ## Mesh modes
 
+One `/mesh <level>` is a single synchronized intensity for the whole stack — it
+drives the required Ponytail companion to the same level, sets RTK's compression,
+and shapes discovery and output. Ponytail owns code minimalism; mesh only sets
+its level.
+
 ```text
 /mesh lite
 /mesh full
@@ -121,13 +126,17 @@ to keep indexing manual; enable it later with
 /mesh
 ```
 
-- **lite** — complete the request and mention one simpler alternative.
-- **full** — inspect the real flow and ship the smallest safe change.
-- **ultra** — challenge speculative scope and optimize aggressively for cost,
-  clarity, and minimal code without weakening security or correctness.
-- **off** — disable the behavior layer for the current session.
+| Level | Ponytail | RTK | Discovery | Output |
+|---|---|---|---|---|
+| **lite** | lite | standard | search-first, fewest calls | normal |
+| **full** | full | standard | CodeGraph → Serena routing | balanced |
+| **ultra** | ultra | ultra-compact (fewer tokens) | search-first, tightest budget | terse, pragmatic, precise |
+| **off** | unchanged | standard | no preset | default |
 
-Persist the default for new sessions with `/mesh default full`.
+`/mesh off` disables mesh's orchestration layer for the session; it does not
+disable Ponytail. Companion sync is best-effort and opt-out with
+`AGENTMESH_NO_PONYTAIL_SYNC=1`. Persist the default for new sessions with
+`/mesh default full`.
 
 ## Commands
 

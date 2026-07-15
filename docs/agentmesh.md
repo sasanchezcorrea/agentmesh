@@ -152,9 +152,10 @@ The stack does not plug in through a single mechanism:
 - **Required companion plugin** (Ponytail) — installed separately from its
   official marketplace on Claude Code and Copilot CLI. This preserves its
   dedicated public namespace and avoids duplicate command/skill injection.
-- **`builtin`** (agentmesh mode) — ships as this plugin's own
-  `skills/`/`commands/`.
-  Nothing external to register or install at all.
+- **`builtin`** (agentmesh mode) — the synchronized stack conductor. Ships as
+  this plugin's own `skills/`/`commands/`; one `/mesh <level>` drives Ponytail's
+  level and RTK's compression and sets discovery/verbosity. Nothing external to
+  register or install at all.
 
 ## What this is NOT (read before you assume more than it does)
 

@@ -3,7 +3,7 @@
 // Inspects user input for /mesh commands.
 
 const { getDefaultMode, isDeactivationCommand, writeDefaultMode } = require('./mesh-config');
-const { clearMode, readMode, setMode, writeHookOutput } = require('./mesh-runtime');
+const { clearMode, readMode, setMode, syncCompanionMode, writeHookOutput } = require('./mesh-runtime');
 
 let input = '';
 let done = false;
@@ -59,6 +59,7 @@ function finish() {
         );
       } else if (mode && mode !== 'off') {
         setMode(mode);
+        syncCompanionMode(mode);
         modeSwitched = true;
         writeHookOutput(
           'UserPromptSubmit',

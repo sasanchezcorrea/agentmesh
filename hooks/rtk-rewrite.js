@@ -13,7 +13,7 @@
 'use strict';
 
 const { spawnSync } = require('child_process');
-const { isCopilot } = require('./mesh-runtime');
+const { isCopilot, readMode } = require('./mesh-runtime');
 
 function readStdin() {
   try {
@@ -23,17 +23,37 @@ function readStdin() {
   }
 }
 
-const client = isCopilot ? 'copilot' : 'claude';
-const input = readStdin();
-
-// mesh: skip silently if rtk isn't installed -- a missing optional tool must
-// never break the rest of the hook chain.
-const result = spawnSync('rtk', ['hook', client], {
-  input,
-  encoding: 'utf8',
-  timeout: 5000,
-});
-if (result.error || result.status !== 0) {
-  process.exit(0);
+// Conductor mapping for RTK: ultra tightens compression to RTK's Level-2
+// (`--ultra-compact`) so the "ultra" stack level really does spend fewer tokens;
+// every other level uses RTK's standard rewrite. Pure + exported so the mapping
+// is unit-testable without rtk installed.
+function buildRtkArgs(client, mode) {
+  const args = ['hook', client];
+  if (typeof mode === 'string' && mode.trim().toLowerCase() === 'ultra') {
+    args.push('--ultra-compact');
+  }
+  return args;
 }
-process.stdout.write(result.stdout || '');
+
+if (require.main === module) {
+  const client = isCopilot ? 'copilot' : 'claude';
+  const input = readStdin();
+  const args = buildRtkArgs(client, readMode());
+
+  // mesh: skip silently if rtk isn't installed -- a missing optional tool must
+  // never break the rest of the hook chain.
+  let result = spawnSync('rtk', args, { input, encoding: 'utf8', timeout: 5000 });
+
+  // If this rtk build predates --ultra-compact, retry the standard rewrite so
+  // compression still happens (degrade to standard, never to nothing).
+  if (args.length > 2 && (result.error || result.status !== 0)) {
+    result = spawnSync('rtk', ['hook', client], { input, encoding: 'utf8', timeout: 5000 });
+  }
+
+  if (result.error || result.status !== 0) {
+    process.exit(0);
+  }
+  process.stdout.write(result.stdout || '');
+}
+
+module.exports = { buildRtkArgs };

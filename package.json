@@ -1,6 +1,6 @@
 {
   "name": "agentmesh",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Single-plugin orchestration for CodeGraph, AX, Engram, RTK, Serena, Ponytail, and cost-aware mesh modes across Claude Code, Copilot CLI, and VS Code.",
   "keywords": ["agentmesh", "mcp", "orchestration", "cost-aware", "skills"],
   "license": "MIT",

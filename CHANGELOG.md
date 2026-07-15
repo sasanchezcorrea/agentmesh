@@ -4,7 +4,19 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.2] - 2026-07-18
+
+### Changed
+- Mesh modes are now a synchronized stack conductor: one `/mesh <level>` drives
+  the whole stack instead of being a standalone code-style layer. The level sets
+  RTK compression (`--ultra-compact` at ultra) and best-effort drives the
+  required Ponytail companion to the same level, so cost and precision are tuned
+  in one place. Opt out of companion sync with `AGENTMESH_NO_PONYTAIL_SYNC=1`.
+- De-duplicated the behavior layer against Ponytail on Claude Code and Copilot
+  CLI: Ponytail owns the "write the least code" ladder and its `ponytail:`
+  marker, so the mesh skill, hook fallback, and `AGENTS.md` no longer restate
+  that policy. The VS Code instruction file keeps it as the sole carrier, since
+  Ponytail is not installed there.
 
 ### Added
 - Ponytail is now a required companion plugin on Claude Code and Copilot CLI.
@@ -40,5 +52,6 @@ Initial release.
   drift is detected.
 - Docker smoke test and Renovate/prek quality gates.
 
+[0.1.2]: https://github.com/sasanchezcorrea/agentmesh/tree/v0.1.2
 [0.1.1]: https://github.com/sasanchezcorrea/agentmesh/tree/v0.1.1
 [0.1.0]: https://github.com/sasanchezcorrea/agentmesh/tree/v0.1.0

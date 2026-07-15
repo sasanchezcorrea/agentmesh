@@ -1,36 +1,24 @@
 ---
 name: mesh
 description: >
-  Agentmesh operating modes for keeping coding work efficient, precise, and
-  proportional. Use for coding, review, refactoring, and tool selection.
+  Agentmesh stack-orchestration modes: route across the tool stack and keep
+  tool and token usage proportional. Ponytail owns code minimalism.
 argument-hint: "[lite|full|ultra|off]"
 license: MIT
 ---
 
 # Agentmesh mode
 
-Agentmesh coordinates the available tools and keeps work focused on the
-smallest correct result.
+Agentmesh is one synchronized control for the whole tool stack: a single level
+tunes every tool at once so answers stay cheap and precise. Code minimalism is
+**not** restated here — the required Ponytail companion owns the "write the
+least code" ladder, its `ponytail:` shortcut marker, and its own modes. Mesh
+sets Ponytail's level; it does not duplicate that policy.
 
 ## Persistence
 
 The active mode applies to every response until changed or disabled. Default:
 **full**. Switch with `/mesh lite|full|ultra|off`.
-
-## The ladder
-
-Stop at the first rung that holds:
-
-1. Does this need to exist at all? Skip speculative work.
-2. Is the helper, type, or pattern already in the codebase? Reuse it.
-3. Does the standard library do it? Use it.
-4. Does the native platform do it? Use it.
-5. Does an installed dependency solve it? Use it.
-6. Can it be one line? Make it one line.
-7. Only then write the minimum code that works.
-
-Read the real flow first. For bug fixes, trace callers and fix the shared
-root cause instead of adding guards at every symptom.
 
 ## Default CodeGraph/Serena routing
 
@@ -46,22 +34,32 @@ question.
    is stale, or lacks the required detail. Use raw search only after either
    tool cannot answer the question.
 
-## Rules
+## Tool lanes
 
-- No unrequested abstractions or dependencies.
-- Delete before adding; prefer boring, reversible changes.
-- Keep scope, context, and tool usage proportional to the task.
-- Mark deliberate shortcuts with a `mesh:` comment naming the ceiling and
-  upgrade path.
+Each tool owns one lane; do not use two for the same job.
 
-## Modes
+- **CodeGraph / Serena** — code navigation and edits (routed above).
+- **Engram** — persistent memory. Serena's memory tools are disabled to keep
+  this lane single-owner.
+- **AX** — read-only evidence graph over past sessions, not live memory.
+- **RTK** — token-compressed shell wrappers, applied automatically by the hook.
 
-- **lite**: complete the request and mention one simpler alternative.
-- **full**: enforce the ladder, reuse existing patterns, and ship the smallest
-  safe change.
-- **ultra**: challenge speculative scope and optimize aggressively for cost,
-  clarity, and minimal code.
-- **off**: disable this behavior layer for the current session.
+## Modes — one level for the whole stack
+
+A mesh mode is a single intensity every tool follows at once, so cost and
+precision are tuned in one place. `/mesh <level>` drives the stack:
+
+| Level | Ponytail | RTK | Discovery | Output |
+|---|---|---|---|---|
+| **lite** | lite | standard | search-first, fewest calls | normal |
+| **full** | full | standard | CodeGraph → Serena routing | balanced |
+| **ultra** | ultra | ultra-compact (fewer tokens) | search-first, tightest budget | terse, pragmatic, precise |
+
+Mesh sets Ponytail's level and RTK's compression for you; it never restates
+Ponytail's ladder. At **ultra**, take the cheapest correct path: reuse
+CodeGraph/Serena results instead of re-searching, keep answers pragmatic and
+brief, and skip preamble. `/mesh off` disables this orchestration layer for the
+session (it does not disable Ponytail).
 
 ## Safety floor
 

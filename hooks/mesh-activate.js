@@ -14,6 +14,7 @@ const {
   clearMode,
   isCopilot,
   setMode,
+  syncCompanionMode,
   writeHookOutput,
 } = require('./mesh-runtime');
 
@@ -33,6 +34,8 @@ if (mode === 'off') {
 // 1. Write flag file
 try {
   setMode(mode);
+  // Conductor sync: bring Ponytail to the same level as the default mesh mode.
+  syncCompanionMode(mode);
 } catch (e) {
   // Silent fail -- flag is best-effort, don't block the hook
 }
